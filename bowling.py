@@ -8,7 +8,7 @@ def score(game):
     first_ball_of_frame = True
     for i in range(len(game)):
 
-        result += get_value(game, i)
+        result += get_pins_knocked_down(game, i)
 
         if frame < NORMAL_FRAMES:
             result += get_bonus(game, i)
@@ -22,14 +22,14 @@ def score(game):
     return result
 
 
-def get_value(game, ball_index):
+def get_pins_knocked_down(game, ball_index):
     ball = game[ball_index]
     if ball.isdigit():
         return int(ball)
     elif is_strike(ball):
         return ALL_PINS
     elif is_spare(ball):
-        return ALL_PINS - get_value(game, ball_index - 1)
+        return ALL_PINS - get_pins_knocked_down(game, ball_index - 1)
     elif ball == '-':
         return 0
     else:
@@ -47,9 +47,9 @@ def is_spare(ball):
 def get_bonus(game, ball_index):
     bonus = 0
     if is_spare(game[ball_index]):
-        bonus += get_value(game, ball_index+1)
+        bonus += get_pins_knocked_down(game, ball_index+1)
     elif is_strike(game[ball_index]):
-        bonus += get_value(game, ball_index+1)
-        bonus += get_value(game, ball_index+2)
+        bonus += get_pins_knocked_down(game, ball_index+1)
+        bonus += get_pins_knocked_down(game, ball_index+2)
     return bonus
 
