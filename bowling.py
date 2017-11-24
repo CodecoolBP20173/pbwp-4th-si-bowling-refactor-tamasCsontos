@@ -24,9 +24,7 @@ def score(game):
 
 def get_value(game, ball_index):
     ball = game[ball_index]
-    if ball == '1' or ball == '2' or ball == '3' or \
-       ball == '4' or ball == '5' or ball == '6' or \
-       ball == '7' or ball == '8' or ball == '9':
+    if ball.isdigit():
         return int(ball)
     elif is_strike(ball):
         return ALL_PINS
