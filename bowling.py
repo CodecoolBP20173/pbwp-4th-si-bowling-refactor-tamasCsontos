@@ -15,7 +15,7 @@ def score(game):
         if frame < ALL_PINS and get_value(game[i]) == ALL_PINS:
             if game[i] == '/':
                 result += get_value(game[i+1])
-            elif game[i] == 'X' or game[i] == 'x':
+            elif is_strike(game[i]):
                 result += get_value(game[i+1])
                 if game[i+2] == '/':
                     result += ALL_PINS - get_value(game[i+1])
@@ -28,7 +28,7 @@ def score(game):
             in_first_half = False
         else:
             in_first_half = True
-        if game[i] == 'X' or game[i] == 'x':
+        if is_strike(game[i]):
             in_first_half = True
             frame += 1
     return result
@@ -39,7 +39,7 @@ def get_value(char):
        char == '4' or char == '5' or char == '6' or \
        char == '7' or char == '8' or char == '9':
         return int(char)
-    elif char == 'X' or char == 'x':
+    elif is_strike(char):
         return ALL_PINS
     elif char == '/':
         return ALL_PINS
@@ -48,3 +48,6 @@ def get_value(char):
     else:
         raise ValueError()
 
+
+def is_strike(ball):
+    return ball == 'X' or ball == 'x'
