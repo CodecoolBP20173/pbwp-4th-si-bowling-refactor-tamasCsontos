@@ -6,18 +6,18 @@ def score(game):
     frame = 1
     in_first_half = True
     for i in range(len(game)):
-        if game[i] == '/':
+        if is_spare(game[i]):
             result += ALL_PINS - last
         else:
             result += get_value(game[i])
         # if not in_first_half:
             # frame += 1
         if frame < ALL_PINS and get_value(game[i]) == ALL_PINS:
-            if game[i] == '/':
+            if is_spare(game[i]):
                 result += get_value(game[i+1])
             elif is_strike(game[i]):
                 result += get_value(game[i+1])
-                if game[i+2] == '/':
+                if is_spare(game[i+2]):
                     result += ALL_PINS - get_value(game[i+1])
                 else:
                     result += get_value(game[i+2])
@@ -41,7 +41,7 @@ def get_value(char):
         return int(char)
     elif is_strike(char):
         return ALL_PINS
-    elif char == '/':
+    elif is_spare(char):
         return ALL_PINS
     elif char == '-':
         return 0
@@ -51,3 +51,7 @@ def get_value(char):
 
 def is_strike(ball):
     return ball == 'X' or ball == 'x'
+
+
+def is_spare(ball):
+    return ball == '/'
