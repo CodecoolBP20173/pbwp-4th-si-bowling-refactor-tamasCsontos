@@ -14,15 +14,8 @@ def score(game):
             result += get_value(game[i])
 
         if frame < NORMAL_FRAMES and get_value(game[i]) == ALL_PINS:
-            if is_spare(game[i]):
-                result += get_value(game[i+1])
-            elif is_strike(game[i]):
-                result += get_value(game[i+1])
-                if is_spare(game[i+2]):
-                    result += ALL_PINS - get_value(game[i+1])
-                else:
-                    result += get_value(game[i+2])
-
+            result += get_bonus(game, i)
+            
         last = get_value(game[i])
 
         if not first_ball_of_frame:
@@ -58,3 +51,17 @@ def is_strike(ball):
 
 def is_spare(ball):
     return ball == '/'
+
+
+def get_bonus(game, ball_index):
+    bonus = 0
+    if is_spare(game[ball_index]):
+        bonus += get_value(game[ball_index+1])
+    elif is_strike(game[ball_index]):
+        bonus += get_value(game[ball_index+1])
+        if is_spare(game[ball_index+2]):
+            bonus += ALL_PINS - get_value(game[ball_index+1])
+        else:
+            bonus += get_value(game[ball_index+2])
+    return bonus
+
