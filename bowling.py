@@ -1,4 +1,5 @@
 ALL_PINS = 10
+NORMAL_FRAMES = 10
 
 
 def score(game):
@@ -11,8 +12,8 @@ def score(game):
             result += ALL_PINS - last
         else:
             result += get_value(game[i])
-        if frame < ALL_PINS and get_value(game[i]) == ALL_PINS:
 
+        if frame < NORMAL_FRAMES and get_value(game[i]) == ALL_PINS:
             if is_spare(game[i]):
                 result += get_value(game[i+1])
             elif is_strike(game[i]):
