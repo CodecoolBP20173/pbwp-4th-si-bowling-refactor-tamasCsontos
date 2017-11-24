@@ -10,15 +10,12 @@ def score(game):
 
         result += get_value(game, i)
 
-        if frame < NORMAL_FRAMES and (is_spare(game[i]) or is_strike(game[i])):
+        if frame < NORMAL_FRAMES:
             result += get_bonus(game, i)
 
-        if not first_ball_of_frame:
-            frame += 1
-        
-        first_ball_of_frame = not first_ball_of_frame
-
-        if is_strike(game[i]):
+        if first_ball_of_frame and not is_strike(game[i]):
+            first_ball_of_frame = False
+        else:
             first_ball_of_frame = True
             frame += 1
 
