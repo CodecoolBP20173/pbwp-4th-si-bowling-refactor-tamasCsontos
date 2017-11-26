@@ -35,7 +35,7 @@ def is_spare(ball):
 def get_bonus(game, ball_index):
     bonus = 0
     remaining_balls = len(game) - ball_index - 1
-    if is_spare(game[ball_index]) and remaining_balls >= 1:
+    if is_spare(game[ball_index]) and remaining_balls >= 2:
         bonus += get_pins_knocked_down(game, ball_index+1)
     elif is_strike(game[ball_index]) and remaining_balls >= 3:
         bonus += get_pins_knocked_down(game, ball_index+1)
